@@ -1,7 +1,7 @@
 let config = {};
 
-config.server = {
-    port: process.env.PORT,
+config = {
+    server: process.env.PORT,
 };
 
 config.db = {

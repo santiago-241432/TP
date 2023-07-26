@@ -1,17 +1,18 @@
 import 'dotenv/config';
 import express, { urlencoded } from 'express';
 import config from './config/config.js';
-import sessionsRouter from './routes/sessions.routes.js';
-import route from './routes/views.routes.js'
+import indexRouter from './routes/index.routes.js';
 
-const app = express();
-const PORT = config.server.port;
+const PORT = config.server;
+
 const CS = config.db.cs;
+
+const app = new express();
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
-app.use("/", route);
-app.use("/api/sessions", sessionsRouter);
+app.use(indexRouter);
+
 
 app.listen(PORT, () =>{
     console.log(`running on port ${PORT}`);
