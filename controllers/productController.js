@@ -1,5 +1,15 @@
 import productDao from '../models/DAO/productDAO.js';
+import { generateProducts } from '../mocks/generateproducts.js';
 const product = new productDao();
+
+const mockingProducts = (req,res) =>{
+    let products = [];
+    for (let i = 0; i < 100; i++) {
+     products.push(generateProducts());   
+        
+    }
+    res.status(200).send(products);
+};
 
 const getAllProducts = async (req,res) =>{
     const result = await product.getAll();
@@ -23,5 +33,6 @@ const createProduct = async (req,res) =>{
 export{
     getAllProducts,
     getProductById,
-    createProduct
+    createProduct,
+    mockingProducts
 }

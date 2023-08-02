@@ -1,7 +1,10 @@
 import express from 'express';
+
 import { getAllProducts,
-    getProductById, createProduct} from '../controllers/productController.js';
+    getProductById, createProduct, mockingProducts} from '../controllers/productController.js';
 const productRouter = express.Router();
+
+productRouter.get('/mockingproducts', mockingProducts);
 
 productRouter.get('/', getAllProducts);
 

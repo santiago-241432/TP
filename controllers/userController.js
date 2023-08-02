@@ -1,4 +1,8 @@
 import userDao from '../models/DAO/usersDAO.js';
+import EErrors from '../services/errors/enums.js';
+import customError from '../services/errors/customError.js';
+import {getUserErrorInfo} from '../services/errors/info.js';
+
 const user = new userDao();
 
 const getAllUsers = async (req,res) =>{
@@ -9,7 +13,12 @@ const getAllUsers = async (req,res) =>{
 const getUserById = async (req,res) =>{
     const { id } = req.params;
     if(!id){
-        return res.status(400).send("Se necesita ID");
+        customError.createError({
+            name: "Error al buscar el usuario",
+            cause: getUserErrorInfo(),
+            message: "Error al buscar el usuario",
+            code: EErrors.INVALID_TYPE_ERROR
+        })
     }
     const result = await user.getUserByID(id);
     res.status(200).send(result);
@@ -17,6 +26,7 @@ const getUserById = async (req,res) =>{
 
 const createUser = async (req,res) =>{
     const result = await user.create(req.body);
+    
     res.status(200).send(result);
 };
 
