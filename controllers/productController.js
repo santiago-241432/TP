@@ -1,5 +1,6 @@
 import productDao from '../models/DAO/productDAO.js';
 import { generateProducts } from '../mocks/generateproducts.js';
+
 const product = new productDao();
 
 const mockingProducts = (req,res) =>{

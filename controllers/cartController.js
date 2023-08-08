@@ -1,4 +1,5 @@
 import cartDao from '../models/DAO/cartDAO.js';
+import log from '../config/logs/devLogger.js';
 const cart = new cartDao();
 
 const createCart = async(req, res) => {
@@ -11,7 +12,7 @@ const getCarts = async(req, res) => {
         const carts = await cart.getCarts();
         res.status(200).send(carts)
     } catch (err) {
-        console.log('Error al obtener los productos', err)
+        log.error('Error al obtener los productos', err)
     }
 }
 
@@ -33,7 +34,7 @@ const getCartById = async(req, res) => {
     })     
     res.status(200).render('cart', {products: newProducts});
     } catch (err) {
-        console.log(err);
+        log.error(err);
     }
 };
     
@@ -53,7 +54,7 @@ const addCartByProductId = async(req, res) => {
         await cart.getCompleteCart(cid);
         res.status(200).redirect('/products?limit=6');
     } catch (err) {
-        console.log('Error agregar al carrito', err)
+        log.error('Error agregar al carrito', err)
     }
 }
 
@@ -63,7 +64,7 @@ const deleteAllProducts = async(req, res) => {
         await cart.deleteProductsCart(cid)
         res.status(200).send('products removed');
     } catch (err) {
-        console.log('Error al eliminar los productos del carrito', err)
+        log.error('Error al eliminar los productos del carrito', err)
     }
 }
 
